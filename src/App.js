@@ -14,10 +14,11 @@ function App() {
       {pos[1] ? (
         <div className="container">
           <Weather pos={pos} />
-          <Mapa pos={pos} />
+          <div className="mapa">
+            <Mapa pos={pos} />
+          </div>
         </div>
       ) : null}
-      ;
     </>
   );
 }

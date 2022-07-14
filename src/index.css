@@ -19,36 +19,55 @@ p {
   margin-bottom: 15px;
 }
 .container {
-  display: flex;
-  flex-direction: column;
+  display: block;
   width: 100%;
 }
 .weather {
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 250px;
+  float: left;
+  margin-right: 10px;
 }
 .current {
   display: flex;
+  max-width: 700px;
   flex-direction: row;
   justify-content: space-between;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
+  margin-bottom: 5px;
 }
 .daily {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
+  padding-top: 2px;
 }
 .day {
   display: block;
-  width: 12%;
+  width: 100%;
   border: 1px solid black;
   border-radius: 5px;
   padding-left: 2px;
+  margin-bottom: 15px;
   background-color: #b6e4e7;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
+  cursor: pointer;
+}
+.day1 {
+  display: block;
+  height: 77px;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding-left: 2px;
+  margin-bottom: 15px;
+  background-color: #b6e4e7;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: larger;
+  cursor: pointer;
 }
 
 form {
@@ -68,4 +87,12 @@ select {
 }
 label {
   margin-bottom: 5px;
+}
+.single {
+  height: 80px;
+  font-size: 36px;
+  padding-top: 15px;
+}
+.hidden {
+  display: none;
 }

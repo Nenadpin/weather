@@ -15,6 +15,8 @@ const Weather = ({ pos }) => {
     "Subota",
     "Nedelja",
   ];
+  const [detail, setDetail] = useState(0);
+
   let danas = new Date();
   nedelja1 = nedelja1.concat(nedelja.splice(danas.getDay()));
   nedelja1 = nedelja1.concat(nedelja);
@@ -22,7 +24,7 @@ const Weather = ({ pos }) => {
   const getWeather = async () => {
     try {
       const weather = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${pos[0]}&lon=${pos[1]}&exclude=hourly&lang=hr&units=metric&appid=${API_key}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${pos[0]}&lon=${pos[1]}&lang=hr&units=metric&appid=${API_key}`
       );
       setLoad(weather.data);
     } catch (err) {
@@ -35,7 +37,7 @@ const Weather = ({ pos }) => {
   return (
     <>
       {load.current ? (
-        <div className="weather">
+        <>
           <div className="current">
             <div>
               {`Datum: `}
@@ -49,27 +51,40 @@ const Weather = ({ pos }) => {
             <div>{`Vetar: ${load.current.wind_speed}  m/s`}</div>
             <div>{`Opis: ${load.current.weather[0].description}`}</div>
           </div>
-          <div className="daily">
-            {load.daily.map((item) => {
-              return (
-                <div className="day" key={item.dt}>
-                  <p>
-                    {
-                      nedelja1.shift() /* {new Date(item.dt * 1000).toLocaleDateString("en-us", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })} */
+          <div className="weather">
+            <div className="daily">
+              {load.daily.map((item) => {
+                return (
+                  <div
+                    key={item.dt}
+                    className={
+                      detail === item.dt || detail === 0 ? "day" : "day1"
                     }
-                  </p>
-                  <p>{`Temp: ${item.temp.min} - ${item.temp.max} C`} </p>
-                  <p>{`Vetar: ${item.wind_speed} m/s`}</p>
-                  <p>{`Opis: ${item.weather[0].description}`}</p>
-                </div>
-              );
-            })}
+                    onClick={() => {
+                      if (detail === item.dt) setDetail(0);
+                      else setDetail(item.dt);
+                    }}
+                  >
+                    <p className={detail !== item.dt ? "single" : "hidden"}>
+                      {nedelja1.shift()}
+                    </p>
+                    {detail === item.dt ? (
+                      <>
+                        <p>{`Temp: ${item.temp.min} - ${item.temp.max} C`} </p>
+                        <p>{`Nocu: ${item.temp.night} C`} </p>
+                        <p>{`Pritisak: ${item.pressure} mBar`} </p>
+                        <p>{`Vlaznost: ${item.humidity} %`} </p>
+                        <p>{`Vetar: ${item.wind_speed} m/s`}</p>
+                        <p>{`Opis: ${item.weather[0].description}`}</p>
+                        <p>{`Kisa: ${item.pop * 100} %`}</p>
+                      </>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </>
       ) : null}
     </>
   );
