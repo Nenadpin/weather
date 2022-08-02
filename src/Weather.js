@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_key = "a663b1f24d797e9ff0b8753ef033def5";
+const API_key = process.env.REACT_APP_API;
 
 const Weather = ({ pos }) => {
   const [load, setLoad] = useState({});
@@ -51,35 +51,50 @@ const Weather = ({ pos }) => {
             <div>{`Vetar: ${load.current.wind_speed}  m/s`}</div>
             <div>{`Opis: ${load.current.weather[0].description}`}</div>
           </div>
-          <div className="weather">
-            <div className="daily">
-              {load.daily.map((item) => {
+          <div className="container-weather">
+            <div className="weather">
+              <div className="daily">
+                {load.daily.map((item) => {
+                  return (
+                    <div
+                      key={item.dt}
+                      className={
+                        detail === item.dt || detail === 0 ? "day" : "day1"
+                      }
+                      onClick={() => {
+                        if (detail === item.dt) setDetail(0);
+                        else setDetail(item.dt);
+                      }}
+                    >
+                      <p className={detail !== item.dt ? "single" : "hidden"}>
+                        {nedelja1.shift()}
+                      </p>
+                      {detail === item.dt ? (
+                        <>
+                          <p>
+                            {`Temp: ${item.temp.min} - ${item.temp.max} C`}{" "}
+                          </p>
+                          <p>{`Nocu: ${item.temp.night} C`} </p>
+                          <p>{`Pritisak: ${item.pressure} mBar`} </p>
+                          <p>{`Vlaznost: ${item.humidity} %`} </p>
+                          <p>{`Vetar: ${item.wind_speed} m/s`}</p>
+                          <p>{`Opis: ${item.weather[0].description}`}</p>
+                          <p>{`Kisa: ${item.pop * 100} %`}</p>
+                        </>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="icons">
+              {load.daily.map((icons) => {
                 return (
-                  <div
-                    key={item.dt}
-                    className={
-                      detail === item.dt || detail === 0 ? "day" : "day1"
-                    }
-                    onClick={() => {
-                      if (detail === item.dt) setDetail(0);
-                      else setDetail(item.dt);
-                    }}
-                  >
-                    <p className={detail !== item.dt ? "single" : "hidden"}>
-                      {nedelja1.shift()}
-                    </p>
-                    {detail === item.dt ? (
-                      <>
-                        <p>{`Temp: ${item.temp.min} - ${item.temp.max} C`} </p>
-                        <p>{`Nocu: ${item.temp.night} C`} </p>
-                        <p>{`Pritisak: ${item.pressure} mBar`} </p>
-                        <p>{`Vlaznost: ${item.humidity} %`} </p>
-                        <p>{`Vetar: ${item.wind_speed} m/s`}</p>
-                        <p>{`Opis: ${item.weather[0].description}`}</p>
-                        <p>{`Kisa: ${item.pop * 100} %`}</p>
-                      </>
-                    ) : null}
-                  </div>
+                  <img
+                    key={icons.dt}
+                    src={`http://openweathermap.org/img/wn/${icons.weather[0].icon}@2x.png`}
+                    alt=""
+                  ></img>
                 );
               })}
             </div>

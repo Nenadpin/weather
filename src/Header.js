@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const API2 = "17dd3553de9ccdfc0fe07cb59a9d0106";
+const API2 = process.env.REACT_APP_API2;
 
 const Header = ({ setPos }) => {
   const [location, setLocation] = useState("");

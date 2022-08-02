@@ -8,6 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #b6e4e7;
 }
 p {
   margin: 5px;
@@ -22,12 +23,31 @@ p {
   display: block;
   width: 100%;
 }
+.container-weather {
+  display: flex;
+  float: left;
+  flex-direction: row;
+  width: 330px;
+  height: 850px;
+
+  border-radius: 5px;
+}
+.icons {
+  display: flex;
+  flex-direction: column;
+  height: 850px;
+  justify-content: space-evenly;
+}
 .weather {
   display: flex;
   flex-direction: column;
   width: 250px;
   float: left;
   margin-right: 10px;
+}
+.mapa {
+  display: flex;
+  flex-direction: column;
 }
 .current {
   display: flex;
@@ -46,25 +66,27 @@ p {
 }
 .day {
   display: block;
+  box-shadow: 0px 0px 15px gray;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
   padding-left: 2px;
   margin-bottom: 15px;
-  background-color: #b6e4e7;
+  background-color: #e6e6e6;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
   cursor: pointer;
 }
 .day1 {
   display: block;
+  box-shadow: 0px 0px 15px gray;
   height: 77px;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
   padding-left: 2px;
   margin-bottom: 15px;
-  background-color: #b6e4e7;
+  background-color: #e6e6e6;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
   cursor: pointer;
@@ -84,6 +106,8 @@ select {
   margin-left: 15px;
   margin-top: 10px;
   text-transform: capitalize;
+  border-radius: 5px;
+  background-color: #e6e6e6;
 }
 label {
   margin-bottom: 5px;

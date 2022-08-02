@@ -13,7 +13,7 @@ function Mapa({ pos }) {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCq2Xl4MrlpG6kScQvfO7j2Np6I0FddQks">
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
