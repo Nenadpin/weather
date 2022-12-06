@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const API2 = process.env.REACT_APP_API2;
+const API2 = process.env.REACT_APP_API;
 
 const Header = ({ setPos }) => {
   const [location, setLocation] = useState("");
-  const [position, setPosition] = useState({});
+  const [position, setPosition] = useState([]);
 
   const getData = async () => {
     try {
       const resp = await axios.get(
-        `http://api.positionstack.com/v1/forward?access_key=${API2}&query=${location}`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${API2}`
       );
 
       setPosition(resp.data);
+      console.log(position);
     } catch (err) {
       console.log(err.message);
     }
@@ -42,24 +43,24 @@ const Header = ({ setPos }) => {
           />
         </label>
 
-        {position.data ? (
+        {position.length ? (
           <select
             onFocus={(e) => {
               e.target.selectedIndex = -1;
             }}
             onChange={(e) => {
               setPos([
-                position.data[e.target.selectedIndex].latitude,
-                position.data[e.target.selectedIndex].longitude,
+                position[e.target.selectedIndex].lat,
+                position[e.target.selectedIndex].lon,
               ]);
             }}
           >
             <>
-              {position.data
+              {position
                 .filter((places) => (places.name = location))
                 .map((place, index) => (
-                  <option key={place.latitude} value={place.name}>
-                    {place.name} - {place.region}
+                  <option key={index} value={place.name}>
+                    {place.name} - {place.country}
                   </option>
                 ))}
             </>
