@@ -10,7 +10,7 @@ const Header = ({ setPos }) => {
   const getData = async () => {
     try {
       const resp = await axios.get(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${API2}`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${API2}`
       );
 
       setPosition(resp.data);
